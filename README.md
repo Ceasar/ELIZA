@@ -18,3 +18,12 @@ ELIZA is a program operating within the MAC time-sharing system at MIT which mak
 (3)  the  choice of  appropriate  transformations,
 (4)  generation  of  responses  in the  absence  of  key  words,  and
 (5)  the  provision  of  an  editing capability  for  ELIZA "scripts".
+
+# Setup
+
+To run the program, you need to compile ELIZA and then give it a script to use for a conversation. For instance.
+
+```
+ghc eliza.hs
+./eliza eliza.e
+```
