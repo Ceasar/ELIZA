@@ -122,6 +122,11 @@ getResponse ds rs s = scan' $ words s
         scan' (w:ws) = fromMaybe (scan' ws) (build ds rs w s)
 
 
+-- The text is read and inspected for the presence of a _keyword_.
+-- If such a word is found, the sentence is transformed according to a _rule_
+-- associated with the keyword, if not a content-free remark, or under certain
+-- conditions, an earlier transformation is retrieved. The text so computed or
+-- retrieved is then printed out.
 talk :: (String -> String) -> IO ()
 talk g = do
     line <- getLine
@@ -130,13 +135,12 @@ talk g = do
 
 main :: IO ()
 main = do
-    [f] <- getArgs
-    t <- readFile f
+    [script] <- getArgs
+    t <- readFile script
     let ds = getKeywords $ Prelude.map (head . wordsWhen (==',')) (lines t)
     let rs = parseFile $ lines t
     print ds
     print rs
     putStrLn "I am Eliza"
     -- interact init -- (getResponse ds rs)
-    let g = getResponse ds rs
-    talk g
+    talk (getResponse ds rs)
